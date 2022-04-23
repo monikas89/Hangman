@@ -32,7 +32,7 @@ To run this project, download entire repository. You can also insert your CSV fi
 
 
 ## Project Status
-Project is in progress. \n
+Project is in progress.
 To do:
 - insert measurement of time (for every guessing word)
 - data analysis - selected categories, guessed words (in Matplotlib)
