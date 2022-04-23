@@ -27,7 +27,7 @@ It is based on a popular hangman game. You have to guess a word (or short phrase
 
 
 ## Setup
-To run this project, download entire repository. You can also insert your CSV files with words or phrases to the directory 'Category' (words have to be stored in column "Name")
+To run this project, download entire repository. You can also insert your CSV files with words or phrases to the directory 'csv_files' (words have to be stored in column "Name")
 
 
 
