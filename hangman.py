@@ -19,7 +19,6 @@ class Hangman:
         self.images_folder = images_folder
         self.path_pictures = self.get_path()
         self.dictionary_categories = self.load_categories()
-        self.categories = list(self.dictionary_categories.keys())
 
     # choosing files from folder: csv_folder with not empty column: column_name [candidates for categories in game]
     def load_categories(self):
@@ -68,11 +67,12 @@ class Hangman:
 
     def initialize_layout(self):
         sg.theme('lightBlue')
+        categories = list(self.dictionary_categories.keys())
         layout = [[sg.Text('Please choose one category:'), sg.Push(), sg.Text("", key='Text_win/lose')],
-                  [sg.Button('{}'.format(category), button_color='blue') for category in self.categories[:4]],
-                  [sg.Button('{}'.format(category), button_color='blue') for category in self.categories[4:8]],
+                  [sg.Button('{}'.format(category), button_color='blue') for category in categories[:4]],
+                  [sg.Button('{}'.format(category), button_color='blue') for category in categories[4:8]],
                   [sg.Button('{}'.format(category), button_color='blue')
-                   for category in self.categories[8:MAX_CATEGORIES]],
+                   for category in categories[8:MAX_CATEGORIES]],
                   [sg.Text(' ', size=(2, 1), key='_{}'.format(i), font='bold') for i in range(0, MAX_WORD_LENGTH)],
                   [sg.Text("Try to guess:", key='Text_word'),
                    sg.Input(key='Input_word', disabled=True), sg.Button('Check', disabled=True)],
@@ -136,7 +136,7 @@ class Hangman:
             number_image = 0
             while True:
                 event, values = window.read()
-                for category in self.categories:
+                for category in self.dictionary_categories:
                     if event == '{}'.format(category):
                         current_category = category
                         # drawing a word from a selected category
@@ -144,7 +144,7 @@ class Hangman:
                         current_word = self.dictionary_categories[current_category].loc[number][self.column_name]
                         current_word_underscores, count_alphabet_letter = Hangman.create_underscores(current_word)
                         window[current_category].update(disabled=True, button_color='white')
-                        for category in self.categories:
+                        for category in self.dictionary_categories:
                             if category != current_category:
                                 window['{}'.format(category)].update(disabled=True)
                         for i in range(0, len(current_word)):
@@ -187,7 +187,7 @@ class Hangman:
                     conditional_two = self.dictionary_categories[current_category]['Name'] == current_word
                     self.dictionary_categories[current_category].drop(self.dictionary_categories[current_category]
                                                                       [conditional_two].index, inplace=True)
-                    for category in self.categories:
+                    for category in self.dictionary_categories:
                         window['{}'.format(category)].update(disabled=False, button_color='blue')
                         if len(self.dictionary_categories[category]) == 0:
                             window['{}'.format(category)].update(disabled=True, button_color='blue')
